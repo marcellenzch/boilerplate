@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: app-initial
+      author: bootify.io
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+            - column:
+                name: id
+                type: uuid
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: email
+                type: character varying(120)
+                constraints:
+                  nullable: false
+            - column:
+                name: first_name
+                type: character varying(255)
+            - column:
+                name: last_name
+                type: character varying(255)
+            - column:
+                name: date_created
+                type: timestamp
+                constraints:
+                  nullable: false
+            - column:
+                name: last_updated
+                type: timestamp
+                constraints:
+                  nullable: false
+        - addUniqueConstraint:
+            constraintName: unique_user_email
+            tableName: user
+            columnNames: email

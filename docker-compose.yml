@@ -1,0 +1,50 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres
+    volumes:
+      - ./postgresdata:/var/lib/postgresql/data
+      - ./init/postgres/create-multiple-postgresql-databases.sh:/docker-entrypoint-initdb.d/create-multiple-postgresql-databases.sh
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_MULTIPLE_DATABASES=sampledb,keycloak
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 5432:5432
+  mailhog:
+    image: mailhog/mailhog
+    restart: always
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0
+    environment:
+      kc_db: postgres
+      kc_db_url: jdbc:postgresql://host.docker.internal:5432/keycloak
+      kc_db_username: postgres
+      kc_db_password: postgres
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    # volumes:
+      # - ./init/idp/data/import:/opt/keycloak/data/import
+    ports:
+      - "8081:8081"
+    command:
+      - start-dev
+      - --http-port=8081
+      - --import-realm
+      - --spi-theme-cache-themes=false
+      - --spi-theme-cache-templates=false
+      - --hostname-strict=false
+      - --log-level=INFO
+    depends_on:
+      - postgres
+      - mailhog
