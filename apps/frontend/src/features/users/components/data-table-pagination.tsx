@@ -8,7 +8,7 @@ interface DataTablePaginationProps<TData> {
 }
 
 export function DataTablePagination<TData>({ table }: DataTablePaginationProps<TData>) {
-  const pageSizeOptions: number[] = [5, 10, 20, 50];
+  const pageSizeOptions: number[] = [1, 2, 5, 10, 20, 50];
 
   return (
     <div className="flex items-center justify-between px-2">

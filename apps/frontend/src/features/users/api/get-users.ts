@@ -2,6 +2,7 @@ import { api } from '@/lib/api-client';
 import { QueryConfig } from '@/lib/react-query';
 import { keepPreviousData, queryOptions, useQuery } from '@tanstack/react-query';
 import { $OpenApiTs } from '@/generated/api/types';
+import { userKeys } from '@/features/users/api/factory/query-key-factory.ts';
 
 type Params = $OpenApiTs['/api/users']['get']['req'];
 type Response = $OpenApiTs['/api/users']['get']['res']['200'];
@@ -12,10 +13,10 @@ export const getUsers = (params: Params = { page: 0 }): Promise<Response> => {
 
 export const getUsersQueryOptions = (params: Params = { page: 0, size: 10 }) => {
   return queryOptions({
-    queryKey: ['users', params.page, params.size],
+    queryKey: userKeys.list(params),
     queryFn: () => getUsers(params),
     placeholderData: keepPreviousData,
-    staleTime: 0,
+    staleTime: 100000,
   });
 };
 

@@ -4,6 +4,7 @@ import { api } from '@/lib/api-client';
 import { MutationConfig } from '@/lib/react-query';
 
 import { $OpenApiTs } from '@/generated/api/types';
+import { userKeys } from '@/features/users/api/factory/query-key-factory.ts';
 
 type RequestBody = $OpenApiTs['/api/users']['post']['req']['requestBody'];
 type ResponseBody = $OpenApiTs['/api/users']['post']['res']['201'];
@@ -23,11 +24,12 @@ export const useCreateUser = ({ mutationConfig }: UseCreateUserOptions) => {
 
   return useMutation({
     onSuccess: (...args) => {
+      // We invalidate the existing queries as the pagination might be affected by the new entry
       queryClient.invalidateQueries({
-        queryKey: ['users'],
+        queryKey: userKeys.lists(),
       });
 
-      queryClient.setQueryData<ResponseBody>(['user', args[0].id], () => args[0]);
+      queryClient.setQueryData<ResponseBody>(userKeys.detail(args[0].id), () => args[0]);
 
       onSuccess?.(...args);
     },

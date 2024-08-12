@@ -119,7 +119,7 @@ export const CreateUser = ({ onSuccess }: CreateUserProps) => {
 export const UpdateUser = ({ onSuccess, id }: UpdateUserProps) => {
   const getUserQuery = useUser({ params: { id: id } });
   if (getUserQuery.isFetching) {
-    return 'Loading Data...';
+    return 'Sample data';
   }
   return <UserForm id={id} onSuccess={onSuccess} defaultValues={getUserQuery.data} />;
 };

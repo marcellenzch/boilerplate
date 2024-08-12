@@ -40,7 +40,7 @@ export function DataTable<TData, TValue>({ columns, data, pagination, loading }:
     onPaginationChange: pagination.setPagination,
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true, //we're doing manual "server-side" pagination
-    debugTable: true,
+    debugTable: false,
   });
 
   // debounce loading state to prevent flickering

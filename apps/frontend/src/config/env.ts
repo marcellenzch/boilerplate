@@ -1,4 +1,3 @@
-import * as z from 'zod';
 import { EnvSchema } from '@/config/env-schema.ts';
 
 const createEnv = () => {
