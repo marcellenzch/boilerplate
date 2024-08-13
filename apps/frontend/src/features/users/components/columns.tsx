@@ -1,5 +1,4 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { UserDTO } from '@/generated/api/types';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +11,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { MoreHorizontal } from 'lucide-react';
 import { DataTableColumnHeader } from './data-table-column-header';
 import React from 'react';
+import { User } from '@/generated/api/types';
 
 interface ColumnDefinitionHandlerProps {
   contextMenuActions: {
@@ -22,13 +22,13 @@ interface ColumnDefinitionHandlerProps {
 
 export function UserColumnHandler({
   contextMenuActions: { setOpenCreateUserDialog, setEditUserId },
-}: ColumnDefinitionHandlerProps): ColumnDef<UserDTO>[] {
+}: ColumnDefinitionHandlerProps): ColumnDef<User>[] {
   const openEditDialog = (id: string | undefined) => {
     setEditUserId(id);
     setOpenCreateUserDialog(true);
   };
 
-  const columns: ColumnDef<UserDTO>[] = [
+  const columns: ColumnDef<User>[] = [
     {
       header: 'ID',
       accessorKey: 'id',

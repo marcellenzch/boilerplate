@@ -6,8 +6,8 @@ import { MutationConfig } from '@/lib/react-query';
 import { $OpenApiTs } from '@/generated/api/types';
 import { userKeys } from '@/features/users/api/factory/query-key-factory.ts';
 
-type RequestBody = $OpenApiTs['/api/users']['post']['req']['requestBody'];
-type ResponseBody = $OpenApiTs['/api/users']['post']['res']['201'];
+type RequestBody = $OpenApiTs['/users']['post']['req']['requestBody'];
+type ResponseBody = $OpenApiTs['/users']['post']['res']['201'];
 
 export const createUser = ({ data }: { data: RequestBody }): Promise<ResponseBody> => {
   return api.post('/users', data);

@@ -6,11 +6,11 @@ import { MutationConfig } from '@/lib/react-query';
 import { $OpenApiTs } from '@/generated/api/types';
 import { userKeys } from '@/features/users/api/factory/query-key-factory.ts';
 
-type Params = $OpenApiTs['/api/users/{id}']['put']['req'];
-type RequestBody = $OpenApiTs['/api/users/{id}']['put']['req']['requestBody'];
-type ResponseBody = $OpenApiTs['/api/users/{id}']['put']['res']['200'];
+type Params = $OpenApiTs['/users/{id}']['put']['req'];
+type RequestBody = $OpenApiTs['/users/{id}']['put']['req']['requestBody'];
+type ResponseBody = $OpenApiTs['/users/{id}']['put']['res']['200'];
 
-type ListResponse = $OpenApiTs['/api/users']['get']['res']['200'];
+type ListResponse = $OpenApiTs['/users']['get']['res']['200'];
 
 export const updateUser = ({
   params,

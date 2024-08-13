@@ -11,11 +11,11 @@ model Pagination {
   /** The maximum number of items in a page */
   @example(10)
   @maxValue(50)
-  size: int64;
+  size: int32;
 
   /** The number of the current page */
   @example(2)
-  number: int64;
+  number: int32;
 
   /** The total number of elements */
   @example(37)
@@ -23,7 +23,7 @@ model Pagination {
 
   /** The total number of Pages */
   @example(4)
-  totalPages: int64;
+  totalPages: int32;
 }
 
 model PaginationQuery {

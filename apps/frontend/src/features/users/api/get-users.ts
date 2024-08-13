@@ -4,8 +4,8 @@ import { keepPreviousData, queryOptions, useQuery } from '@tanstack/react-query'
 import { $OpenApiTs } from '@/generated/api/types';
 import { userKeys } from '@/features/users/api/factory/query-key-factory.ts';
 
-type Params = $OpenApiTs['/api/users']['get']['req'];
-type Response = $OpenApiTs['/api/users']['get']['res']['200'];
+type Params = $OpenApiTs['/users']['get']['req'];
+type Response = $OpenApiTs['/users']['get']['res']['200'];
 
 export const getUsers = (params: Params = { page: 0 }): Promise<Response> => {
   return api.get(`/users`, { params });

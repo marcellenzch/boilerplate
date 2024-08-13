@@ -7,7 +7,6 @@ plugins {
   kotlin("plugin.spring") version "1.9.24"
   kotlin("plugin.allopen") version "1.9.24"
   id("org.springframework.boot") version "3.3.1"
-  id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
   id("org.openapi.generator") version "7.7.0"
 }
 
@@ -54,12 +53,6 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.withType<Test> { useJUnitPlatform() }
-
-openApi {
-  apiDocsUrl.set("http://localhost:8080/openapi.yaml")
-  outputDir.set(file("$projectDir/../../shared/openapi"))
-  outputFileName.set("service.yaml")
-}
 
 openApiGenerate {
   generatorName.set("kotlin-spring")

@@ -6,13 +6,13 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import React from 'react';
-import { UserDTO, UserDTOCreateOrUpdate } from '@/generated/api/types';
+import { User, UserCreateOrUpdate } from '@/generated/api/types';
 import { useUser } from '@/features/users/api/get-user.ts';
 import { useUpdateUser } from '@/features/users/api/update-user.ts';
 import { addApiErrorResponseToFormErrors } from '@/lib/react-hook-form.ts';
 
 type CreateUserProps = {
-  onSuccess?: (data: UserDTO, variables: { data: UserDTOCreateOrUpdate }, context: unknown) => void;
+  onSuccess?: (data: User, variables: { data: UserCreateOrUpdate }, context: unknown) => void;
 };
 
 type UpdateUserProps = CreateUserProps & {
@@ -21,8 +21,8 @@ type UpdateUserProps = CreateUserProps & {
 
 interface UserFormProps {
   id?: string;
-  onSuccess?: (data: UserDTO, variables: { data: UserDTOCreateOrUpdate }, context: unknown) => void;
-  defaultValues?: Partial<UserDTO>;
+  onSuccess?: (data: User, variables: { data: UserCreateOrUpdate }, context: unknown) => void;
+  defaultValues?: Partial<User>;
 }
 
 const UserForm = ({ id, onSuccess, defaultValues }: UserFormProps) => {
