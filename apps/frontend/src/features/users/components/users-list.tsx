@@ -8,6 +8,7 @@ import { FormDialog } from '@/features/users/components/form-dialog.tsx';
 import { UpdateUser } from '@/features/users/components/edit-user.tsx';
 import { useUser } from '@/features/users/api/get-user.ts';
 import { useSearchParams } from 'react-router-dom';
+import { useDeleteUser } from '@/features/users/api/delete-user.ts';
 
 const defaultPagination: PaginationState = {
   pageIndex: 0,
@@ -32,6 +33,8 @@ export const UsersList = () => {
   const { data, isPending, isFetching } = useUsers({
     params: { page: pagination.pageIndex, size: pagination.pageSize },
   });
+
+  const deleteUserMutation = useDeleteUser({ mutationConfig: { onSuccess: () => {} } });
 
   const userQuery = useUser({ params: { id: '1bbf9a16-0850-4fcc-8c51-86714e675122' } });
 
@@ -62,9 +65,17 @@ export const UsersList = () => {
     metadata: data.page,
   };
 
+  const deleteUser = (id: string) => {
+    if (confirm('Do you really want to delete this user?')) {
+      deleteUserMutation.mutate({ id });
+    }
+  };
+
   const email = userQuery.data?.email ?? '';
 
-  const tableColumns = UserColumnHandler({ contextMenuActions: { setOpenCreateUserDialog, setEditUserId } });
+  const tableColumns = UserColumnHandler({
+    contextMenuActions: { setOpenCreateUserDialog, setEditUserId, deleteUser },
+  });
 
   return (
     <>

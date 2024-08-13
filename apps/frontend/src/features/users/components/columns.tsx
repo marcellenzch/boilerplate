@@ -15,13 +15,14 @@ import { User } from '@/generated/api/types';
 
 interface ColumnDefinitionHandlerProps {
   contextMenuActions: {
+    deleteUser: (id: string) => void;
     setOpenCreateUserDialog: React.Dispatch<React.SetStateAction<boolean>>;
     setEditUserId: React.Dispatch<React.SetStateAction<string | undefined>>;
   };
 }
 
 export function UserColumnHandler({
-  contextMenuActions: { setOpenCreateUserDialog, setEditUserId },
+  contextMenuActions: { setOpenCreateUserDialog, setEditUserId, deleteUser },
 }: ColumnDefinitionHandlerProps): ColumnDef<User>[] {
   const openEditDialog = (id: string | undefined) => {
     setEditUserId(id);
@@ -78,7 +79,7 @@ export function UserColumnHandler({
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => openEditDialog(user.id)}>Edit</DropdownMenuItem>
-                <DropdownMenuItem>View payment details</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => deleteUser(user.id)}>Delete</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
