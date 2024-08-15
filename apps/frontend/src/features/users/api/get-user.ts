@@ -4,7 +4,7 @@ import { queryOptions, useQuery } from '@tanstack/react-query';
 import { $OpenApiTs } from '@/generated/api/types';
 import { userKeys } from '@/features/users/api/factory/query-key-factory.ts';
 
-type Params = $OpenApiTs['/users/{id}']['get']['req'];
+type Params = Omit<$OpenApiTs['/users/{id}']['get']['req'], `xTenantId`>;
 type Response = $OpenApiTs['/users/{id}']['get']['res']['200'];
 
 export const getUser = (params: Params): Promise<Response> => {

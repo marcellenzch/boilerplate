@@ -21,6 +21,9 @@ spring:
   liquibase:
     change-log: classpath:domain/changelog-master.yml
     drop-first: false
+    user: ${JDBC_DATABASE_USERNAME:postgres}
+    password: ${JDBC_DATABASE_PASSWORD:postgres}
+    url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/sampledb}
   security:
     oauth2:
       resourceserver:
@@ -37,6 +40,13 @@ error:
       org.springframework.security.authorization.AuthorizationDeniedException: unauthorized
     codes:
       UserEmailUnique: USER_EMAIL_UNIQUE
+
+logging:
+  level:
+    org:
+      springframework:
+        security: INFO
+
 springdoc:
   pathsToMatch: /, /api/**
   api-docs:

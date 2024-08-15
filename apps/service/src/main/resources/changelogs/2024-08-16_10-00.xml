@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"  logicalFilePath="changelogs/2024-08-16_10-00.xml">
+
+    <changeSet id="outbox_event_table" author="marcel@paymira.com">
+        <createTable tableName="outbox_event">
+            <column name="id" type="uuid">
+                <constraints nullable="false" />
+            </column>
+            <column name="tenant_id" type="uuid" />
+            <column name="event_type" type="character varying(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="aggregate_id" type="uuid">
+                <constraints nullable="false" />
+            </column>
+            <column name="data" type="bytea" />
+            <column name="event_date_utc" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+            <column name="date_created" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+            <column name="last_updated" type="timestamp" />
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

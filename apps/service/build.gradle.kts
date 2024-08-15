@@ -6,8 +6,10 @@ plugins {
   kotlin("jvm") version "1.9.24"
   kotlin("plugin.spring") version "1.9.24"
   kotlin("plugin.allopen") version "1.9.24"
-  id("org.springframework.boot") version "3.3.1"
+  kotlin("plugin.serialization") version "2.0.0"
+  id("org.springframework.boot") version "3.3.2"
   id("org.openapi.generator") version "7.7.0"
+  id("org.jetbrains.gradle.liquibase") version "1.5.2"
 }
 
 group = "ch.example"
@@ -23,6 +25,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
   implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   runtimeOnly("org.postgresql:postgresql")
@@ -33,6 +36,10 @@ dependencies {
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.springframework.security:spring-security-test")
   implementation("org.slf4j:slf4j-api:2.0.13")
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
+  liquibaseRuntime("org.liquibase:liquibase-core")
+  liquibaseRuntime("org.postgresql:postgresql")
+  testImplementation("io.strikt:strikt-core:0.35.1")
 }
 
 allOpen {
@@ -72,4 +79,23 @@ sourceSets.named("main").configure {
   extensions
     .getByName<SourceDirectorySet>("kotlin")
     .srcDirs(project.layout.buildDirectory.dir("generate-resources/main"))
+}
+
+liquibase {
+  activities {
+    all {
+      properties {
+        changeLogFile.set("./src/main/resources/domain/changelog-master.yml")
+        driver.set("org.postgresql.Driver")
+        includeSystemClasspath.set(true)
+      }
+    }
+    register("local") {
+      properties {
+        url.set("jdbc:postgresql://localhost:5432/sampledb")
+        username.set("postgres")
+        password.set("postgres")
+      }
+    }
+  }
 }

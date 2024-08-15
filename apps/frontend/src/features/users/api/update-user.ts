@@ -6,7 +6,7 @@ import { MutationConfig } from '@/lib/react-query';
 import { $OpenApiTs } from '@/generated/api/types';
 import { userKeys } from '@/features/users/api/factory/query-key-factory.ts';
 
-type Params = $OpenApiTs['/users/{id}']['put']['req'];
+type Params = Omit<$OpenApiTs['/users/{id}']['put']['req'], `xTenantId`>;
 type RequestBody = $OpenApiTs['/users/{id}']['put']['req']['requestBody'];
 type ResponseBody = $OpenApiTs['/users/{id}']['put']['res']['200'];
 

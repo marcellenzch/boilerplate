@@ -33,7 +33,7 @@ model PaginationQuery {
   size?: int32;
 
   /** The number of the page you want to query */
-  @example(10)
   @query
+  @example(10)
   page?: int32;
 }

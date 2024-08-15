@@ -6,7 +6,7 @@ import { MutationConfig } from '@/lib/react-query';
 import { $OpenApiTs } from '@/generated/api/types';
 import { userKeys } from '@/features/users/api/factory/query-key-factory.ts';
 
-type Params = $OpenApiTs['/users/{id}']['delete']['req'];
+type Params = Omit<$OpenApiTs['/users/{id}']['delete']['req'], `xTenantId`>;
 
 export const deleteUser = (params: Params): Promise<void> => {
   return api.delete(`/users/${params.id}`);

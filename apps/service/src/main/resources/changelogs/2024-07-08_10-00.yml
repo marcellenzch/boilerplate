@@ -1,4 +1,5 @@
 databaseChangeLog:
+  - logicalFilePath: changelogs/2024-07-08_10-00.yml
   - changeSet:
       id: app-initial
       author: bootify.io
