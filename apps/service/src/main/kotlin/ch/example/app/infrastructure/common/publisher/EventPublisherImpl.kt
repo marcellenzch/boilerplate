@@ -2,7 +2,6 @@ package ch.example.app.infrastructure.common.publisher
 
 import ch.example.app.application.common.publisher.EventPublisher
 import ch.example.app.application.common.serializer.Serializer
-import ch.example.app.application.user.events.DomainEvent
 import ch.example.app.application.user.events.UserCreatedEvent
 import ch.example.app.domain.outbox.models.OutboxEvent
 import ch.example.app.infrastructure.common.events.SpringApplicationEvent
@@ -17,12 +16,9 @@ class EventPublisherImpl(
 ) : EventPublisher {
 
   override suspend fun publish(event: OutboxEvent) {
-    applicationEventPublisher.publishEvent(
-      SpringApplicationEvent<DomainEvent>(
-        serializer.deserialize(event.data, event.serializationClazz())
-      )
-    )
-    log.info("Published event: $event")
+    val deserializedObject = serializer.deserialize(event.data, event.serializationClazz())
+    log.info("Publishing event: $event")
+    applicationEventPublisher.publishEvent(SpringApplicationEvent(deserializedObject))
   }
 
   companion object {

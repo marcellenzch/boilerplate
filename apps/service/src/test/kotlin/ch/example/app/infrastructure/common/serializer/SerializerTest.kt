@@ -10,12 +10,11 @@ import java.util.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+import strikt.api.expectThat
+import strikt.assertions.isEqualTo
 
 @SpringBootTest
 class SerializerTest {
-
-  @Autowired private lateinit var springMvcJacksonConverter: MappingJackson2HttpMessageConverter
 
   @Autowired private lateinit var serializer: Serializer
 
@@ -25,15 +24,20 @@ class SerializerTest {
     val user =
       User(
         userId = UserId(uid),
-        email = Email("test@example.ch"),
+        email = Email("john.doe@example.com"),
         firstName = FirstName("John"),
         lastName = LastName("Doe"),
       )
 
-    val serializedData = serializer.serializeToString(user)
-    println(serializedData)
-    // val deserializedUser = serializer.deserialize(serializedData, User::class.java)
+    val serializedData = serializer.serializeToBytes(user)
+    println(serializer.serializeToString(user))
+    val deserializedUser = serializer.deserialize(serializedData, User::class.java)
 
-    // expectThat(deserializedUser) { get { userId }.isEqualTo(user.userId) }
+    expectThat(deserializedUser) {
+      get { userId }.isEqualTo(user.userId)
+      get { email }.isEqualTo(user.email)
+      get { firstName }.isEqualTo(user.firstName)
+      get { lastName }.isEqualTo(user.lastName)
+    }
   }
 }

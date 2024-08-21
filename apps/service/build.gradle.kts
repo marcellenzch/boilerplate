@@ -28,6 +28,7 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
   implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+  implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   runtimeOnly("org.postgresql:postgresql")
   implementation("org.liquibase:liquibase-core")
   implementation("io.github.wimdeblauwe:error-handling-spring-boot-starter:4.3.0")
